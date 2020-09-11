@@ -1,0 +1,10 @@
+name: "covid19_email_report"
+output_dir: "docs"
+navbar:
+  title: "covid19_email_report"
+  left:
+  - text: "Home"
+   href: index.html
+output:
+  html_document:
+ theme: cosmo
