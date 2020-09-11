@@ -1,0 +1,141 @@
+---
+title: "R Notebook"
+output: blastula::blastula_email
+
+
+
+---
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# load libraries
+library(tidyverse) # data manipulation and visualization
+library(dplyr) # data manipulation
+library(lubridate) # dates
+library(data.table) # formatting 
+library(knitr) # kniting 
+library(ggplot2) # visualizations
+library(matrixStats) # stats
+library(plotly) # visualizations
+library(zoo) # working w/time series data
+library(blastula) #compose and send emails 
+library(ggpubr) # setting multiple plots on one page
+
+# get functions
+source("function.R")
+# get data
+source("load_data.R")
+
+# Get a nicely formatted date/time string
+date_time <- add_readable_time()
+
+```
+
+
+Good Morning:
+
+This is your daily COVID-19 report, sent on `r date_time`. Shown below is a current **draft** in continual development and error checking. Please feel free to reach out with suggestions or issues!
+
+---
+
+### USA overall
+
+> `r usa_body`
+
+#### 7-day moving average of new cases in the US (`r first_day` to `r most_recent`)
+```{r echo=FALSE, warning=FALSE}
+
+usa_cases <- mavg_plot_func(daily_new)
+
+usa_cases <-
+  add_ggplot(plot_object = usa_cases)
+usa_cases
+
+```
+
+---
+
+### Los Angeles County, CA
+
+> `r la_body`
+
+
+#### 7-day moving average of new cases in Los Angeles County (`r min(la$date)` to `r max(la$date)`)
+
+```{r echo=FALSE, warning=FALSE}
+la <- mavg_plot_func(la)
+
+la <-
+  add_ggplot(plot_object = la)
+la
+```
+
+---
+
+### New York City, NY
+
+> `r nyc_body`
+
+
+#### 7-day moving average of new cases in New York City (`r min(nyc$date)` to `r max(nyc$date)`)
+
+```{r echo=FALSE, warning=FALSE}
+nyc <- mavg_plot_func(nyc)
+
+nyc <-
+  add_ggplot(plot_object = nyc)
+nyc
+```
+
+---
+
+### Chicago (Cook County), IL
+
+> `r chicago_body`
+
+
+#### 7-day moving average of new cases in Chicago (Cook County) (`r min(ck$date)` to `r max(ck$date)`)
+
+```{r echo=FALSE, warning=FALSE}
+ck <- mavg_plot_func(ck)
+
+ck <-
+  add_ggplot(plot_object = ck)
+ck
+```
+
+
+---
+
+### Boston (Suffolk County), MA
+
+> `r boston_body`
+
+
+#### 7-day moving average of new cases in Boston (Suffolk County) (`r min(sf$date)` to `r max(sf$date)`)
+
+```{r echo=FALSE, warning=FALSE}
+sf <- mavg_plot_func(sf)
+
+sf <-
+  add_ggplot(plot_object = sf)
+sf
+```
+
+---
+
+### Hong Kong
+
+> `r hk_body`
+
+
+#### 7-day moving average of new cases in Hong Kong (`r min(hk$date)` to `r max(hk$date)`)
+
+```{r echo=FALSE, warning=FALSE}
+hk <- mavg_plot_func(hk)
+
+hk <-
+  add_ggplot(plot_object = hk)
+hk
+```
+
